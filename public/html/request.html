@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>request</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link href="../css/request.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-sm navbar" style="padding: 30px">
+      <div class="container-fluid">
+        <img src="../namecard.png" />
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="collapsibleNavbar"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">서비스 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">상품 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">간식 요청</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">플랜 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">로그인</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="main-container">
+      <div class="snack-all">
+        <ul class="snack-all-ul">
+          <li>비스킷</li>
+          <li>파이</li>
+          <li>젤리</li>
+          <li>음료</li>
+        </ul>
+
+        <hr />
+
+        <ul class="snack-list">
+          <li>
+            이미지1 과자1
+            <button type="button" class="btn btn-success">Success</button>
+          </li>
+          <hr />
+          <li>
+            이미지2 과자2
+            <button type="button" class="btn btn-success">Success</button>
+          </li>
+          <hr />
+          <li>
+            이미지3 과자3
+            <button type="button" class="btn btn-success">Success</button>
+          </li>
+          <hr />
+        </ul>
+      </div>
+
+      <div class="v-line"></div>
+
+      <div class="user-container">
+        <div class="user-snack">
+          <h4>한국공간데이터 간식 목록</h4>
+          <hr />
+          <ul class="snack-list">
+            <li>이미지1 마가렛트</li>
+            <hr />
+            <li>이미지2 초코파이</li>
+            <hr />
+          </ul>
+        </div>
+
+        <div class="user-req-snack">
+          <h4>추가로 요청한 간식</h4>
+          <hr />
+          <ul class="snack-list">
+            <li>
+              이미지1 마가렛트
+              <button type="button" class="btn btn-danger">Danger</button>
+            </li>
+            <hr />
+            <li>
+              이미지2 초코파이
+              <button type="button" class="btn btn-danger">Danger</button>
+            </li>
+            <hr />
+          </ul>
+        </div>
+
+        <div class="user-req-free">
+          <h4>기타 요청사항 적어주세요</h4>
+          <hr />
+          <textarea
+            placeholder="이런것도 먹고싶고 저런것도 해주시고 쌸라쌸라"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
