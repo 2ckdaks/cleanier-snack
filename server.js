@@ -20,6 +20,10 @@ app.get("/request", function (req, res) {
   res.sendFile(__dirname + "/public/html/request.html");
 });
 
+app.post("/add", function(req, res) {
+  res.send('전송완료')
+})
+
 app.get("/snack-list", function (req, res) {
   res.sendFile(__dirname + "/public/html/snack-list.html");
 });
@@ -27,3 +31,4 @@ app.get("/snack-list", function (req, res) {
 app.get("/user-list", function (req, res) {
   res.sendFile(__dirname + "/public/html/user-list.html");
 });
+

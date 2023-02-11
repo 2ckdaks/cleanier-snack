@@ -128,14 +128,17 @@
         </div> -->
 
         <div class="user-req-free">
-          <h4>요청사항</h4>
-          <hr />
-          <textarea
-            style="height: 400px"
-            placeholder="이런것도 먹고싶고 저런것도 해주시고 쌸라쌸라"
-          ></textarea>
-        </div>
-      </div>
+          <form action="/add" method="POST">
+              <h4>요청사항</h4>
+              <hr />
+              <textarea
+                style="height: 400px"
+                placeholder="이런것도 먹고싶고 저런것도 해주시고 쌸라쌸라"
+              ></textarea>
+              <button type="submit">요청하기</button>
+            </div>
+          </div>
+        </form>
     </div>
 
     <script
