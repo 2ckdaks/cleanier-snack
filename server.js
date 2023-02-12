@@ -33,7 +33,9 @@ app.get("/request", function (req, res) {
   res.render('request.ejs');
 });
 app.post('/add', function(req, res){
-  console.log(req.body.request);
+  db.collection('test').insertOne({request : req.body.request}, function(req, res){
+      console.log('요청사항 전송 완료')
+    });
   res.redirect('/request')
 });
 
