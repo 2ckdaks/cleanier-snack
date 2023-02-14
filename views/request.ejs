@@ -51,34 +51,10 @@
     </nav>
 
     <div class="main-container">
-      <!-- <div class="snack-all">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <ul class="snack-all-ul">
-                <li>비스킷</li>
-                <li>파이</li>
-                <li>젤리</li>
-                <li>음료</li>
-              </ul>
-
-              <div class="list-group">
-                <button class="list-group-item list-group-item-action">
-                  Lorem
-                </button>
-                <button href="#" class="list-group-item list-group-item-action">
-                  Ipsum
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       <div class="user-snack">
         <h4>한국공간데이터 간식 목록</h4>
         <hr />
-        <div class="container">
+        <div class="container" style="height: 600px; overflow-y: scroll">
           <div class="row">
             <div class="col-12">
               <ul class="list-group">
@@ -106,34 +82,14 @@
         </div>
       </div>
 
-      <!-- <div class="v-line"></div> -->
-
       <div class="user-container">
-        <!-- <div class="user-req-snack">
-          <h4>추가로 요청한 간식</h4>
-          <hr />
-          <div class="user-snack">
-            <div class="container">
-              <div class="row">
-                <div class="col-12">
-                  <ul class="list-group">
-                    <li class="list-group-item">Lorem</li>
-                    <li class="list-group-item">Ipsum</li>
-                    <li class="list-group-item">Dolor</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
         <div class="user-req-free">
           <form action="/add" method="POST">
             <h4>요청사항</h4>
             <hr />
             <textarea
               name="request"
-              style="height: 400px"
+              style="height: 200px"
               placeholder="이런것도 먹고싶고 저런것도 해주시고 쌸라쌸라"
             ></textarea>
             <button type="submit">요청하기</button>
@@ -153,8 +109,6 @@
         </div>
       </div>
     </div>
-
-    <!-- request나열 -->
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

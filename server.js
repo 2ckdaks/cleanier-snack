@@ -42,6 +42,16 @@ app.get("/request", function (req, res) {
     });
 });
 
+//작성자가 '이창민'인것만 출력
+// app.get("/request", function (req, res) {
+//   db.collection("test")
+//     .find({ writer: "이창민" })
+//     .toArray(function (에러, 결과) {
+//       console.log(결과);
+//       res.render("request.ejs", { test: 결과 });
+//     });
+// });
+
 //요청사항 전송
 app.post("/add", function (req, res) {
   db.collection("test").insertOne(
