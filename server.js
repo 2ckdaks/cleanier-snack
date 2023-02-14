@@ -32,10 +32,17 @@ app.get("/login", function (req, res) {
   res.render("login.ejs");
 });
 
-//요청사항 전송
+//요청사항 리스트
 app.get("/request", function (req, res) {
-  res.render("request.ejs");
+  db.collection("test")
+    .find()
+    .toArray(function (에러, 결과) {
+      console.log(결과);
+      res.render("request.ejs", { test: 결과 });
+    });
 });
+
+//요청사항 전송
 app.post("/add", function (req, res) {
   db.collection("test").insertOne(
     { request: req.body.request },
