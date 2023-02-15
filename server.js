@@ -24,10 +24,12 @@ MongoClient.connect(
   }
 );
 
+//메인 페이지
 app.get("/", function (req, res) {
   res.render("index.ejs");
 });
 
+//로그인 페이지
 app.get("/login", function (req, res) {
   res.render("login.ejs");
 });
@@ -63,10 +65,24 @@ app.post("/add", function (req, res) {
   res.redirect("/request");
 });
 
-app.get("/snack-list", function (req, res) {
-  res.render("snack-list.ejs");
+// 관리자 페이지
+
+//간식관리 페이지
+app.get("/admin-snack-list", function (req, res) {
+  db.collection("test")
+    .find()
+    .toArray(function (에러, 결과) {
+      console.log(결과);
+      res.render("admin-snack-list.ejs", { test: 결과 });
+    });
 });
 
-app.get("/user-list", function (req, res) {
-  res.render("user-list.ejs");
+//고객관리 페이지
+app.get("/admin-user-list", function (req, res) {
+  db.collection("test")
+    .find()
+    .toArray(function (에러, 결과) {
+      console.log(결과);
+      res.render("admin-user-list.ejs", { test: 결과 });
+    });
 });
