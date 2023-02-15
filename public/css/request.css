@@ -1,6 +1,6 @@
 .main-container {
   width: 90%;
-  height: 2000px;
+  height: 1000px;
   padding: 10px;
   margin: 0 auto;
   display: flex;
@@ -32,11 +32,6 @@
   list-style: none;
 }
 
-.v-line {
-  border-left: thick solid #4232ce;
-  height: 2000px;
-}
-
 .user-container {
   width: 45%;
   height: 50px;
@@ -64,4 +59,62 @@
 
 .user-req-free textarea {
   width: 100%;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .main-container {
+    width: 90%;
+    height: 1500px;
+    padding: 10px;
+    display: block;
+    text-align: center;
+  }
+
+  .snack-list {
+    margin-top: 30px;
+  }
+
+  .snack-list li {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    list-style: none;
+  }
+
+  .user-container {
+    width: 100%;
+    height: 50px;
+    vertical-align: middle;
+  }
+
+  .user-snack {
+    width: 100%;
+    height: 700px;
+    text-align: center;
+  }
+
+  .user-req-snack {
+    width: 100%;
+    height: 600px;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .user-req-free {
+    width: 100%;
+    height: 1000px;
+    text-align: center;
+  }
+
+  .user-req-free textarea {
+    width: 100%;
+  }
+
+  .container::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -37,10 +37,10 @@
               <a class="nav-link" href="#">상품 소개</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/request">간식 요청</a>
+              <a class="nav-link" href="#">플랜 소개</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">플랜 소개</a>
+              <a class="nav-link" href="/request">간식 요청</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/login">로그인</a>
@@ -90,9 +90,11 @@
             <textarea
               name="request"
               style="height: 200px"
-              placeholder="이런것도 먹고싶고 저런것도 해주시고 쌸라쌸라"
+              minlength="1"
+              required
+              placeholder="요청사항을 입력해주세요"
             ></textarea>
-            <button type="submit">요청하기</button>
+            <button type="submit" class="btn btn-success">요청하기</button>
           </form>
 
           <br /><br /><br />
