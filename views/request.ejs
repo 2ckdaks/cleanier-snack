@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>request</title>
+    <title>cleanier-snack</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,41 +14,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-sm navbar" style="padding: 30px">
-      <div class="container-fluid">
-        <a href="/"><img src="../namecard.png" /></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapsibleNavbar"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse justify-content-end"
-          id="collapsibleNavbar"
-        >
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">서비스 소개</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">상품 소개</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">플랜 소개</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/request">간식 요청</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">로그인</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <%- include('user-nav.html') %>
 
     <div class="main-container">
       <div class="user-snack">
@@ -64,18 +30,6 @@
                     style="width: 50px; height: 50px"
                   />Lorem
                 </li>
-                <li class="list-group-item">
-                  <img
-                    src="../snack-img/마가렛트.jpg"
-                    style="width: 50px; height: 50px"
-                  />Ipsum
-                </li>
-                <li class="list-group-item">
-                  <img
-                    src="../snack-img/마가렛트.jpg"
-                    style="width: 50px; height: 50px"
-                  />Dolor
-                </li>
               </ul>
             </div>
           </div>
@@ -84,7 +38,7 @@
 
       <div class="user-container">
         <div class="user-req-free">
-          <form action="/add" method="POST">
+          <form action="/add-request" method="POST">
             <h4>요청사항</h4>
             <hr />
             <textarea
@@ -104,6 +58,9 @@
               <% for (let i = test.length - 1; i >= 0; i--){ %>
               <li class="list-group-item">
                 <p><%= test[i].request %></p>
+                <!--관리자 기능에서 쓸만한 삭제버튼
+                <button class="delete" data-id="<%=test[i]._id %>">삭제</button>
+                -->
               </li>
               <% } %>
             </ul>
@@ -117,10 +74,24 @@
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="https://code.jquery.com/jquery-3.6.3.min.js"
-      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+    <!--관리자 기능에서 쓸만한 삭제기능
+    <script>
+      $(".delete").click(function (e) {
+        $.ajax({
+          method: "DELETE",
+          url: "/delete-request",
+          data: { _id: e.target.dataset.id },
+        })
+          .done((결과) => {
+            $(this).parent("li").fadeOut();
+          })
+          .fail((에러) => {
+            console.log(에러);
+          });
+      });
+      -->
+    </script>
   </body>
 </html>

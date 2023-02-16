@@ -6,6 +6,16 @@ const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 app.set("view engine", "ejs");
 
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const session = require("express-session");
+
+app.use(
+  session({ secret: "비밀코드", resave: true, saveUninitialized: false })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 var db;
 MongoClient.connect(
   "mongodb+srv://2ckdaks:s3528022@cluster0.0qiowcf.mongodb.net/cleanier-snack?retryWrites=true&w=majority",
@@ -29,18 +39,105 @@ app.get("/", function (req, res) {
   res.render("index.ejs");
 });
 
-//로그인 페이지
-app.get("/login", function (req, res) {
-  res.render("login.ejs");
-});
+// 관리자 페이지
 
-//요청사항 리스트
-app.get("/request", function (req, res) {
+//간식관리 페이지
+app.get("/admin-snack-list", function (req, res) {
   db.collection("test")
     .find()
     .toArray(function (에러, 결과) {
       console.log(결과);
-      res.render("request.ejs", { test: 결과 });
+      res.render("admin-snack-list.ejs", { test: 결과 });
+    });
+});
+
+//로그인 페이지
+app.get("/login", function (req, res) {
+  res.render("login.ejs");
+});
+app.post(
+  "/login",
+  passport.authenticate("local", { failureRedirect: "/fail" }),
+  function (req, res) {
+    res.redirect("/index-login");
+  }
+);
+app.get("/fail", function (req, res) {
+  res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+  res.write("<script>alert('id/pw가 일치하지 않습니다. ')</script>");
+  res.write('<script>window.location="login"</script>');
+});
+
+app.get("/index-login", function (req, res) {
+  res.render("index-login.ejs");
+});
+
+//고객관리 페이지
+app.get("/admin-user-list", function (req, res) {
+  db.collection("test")
+    .find()
+    .toArray(function (에러, 결과) {
+      console.log(결과);
+      res.render("admin-user-list.ejs", { test: 결과 });
+    });
+});
+
+//로그인에 필요함 (로컬스트러지 인증방식)
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "id",
+      passwordField: "pw",
+      session: true,
+      passReqToCallback: false,
+    },
+    function (입력한아이디, 입력한비번, done) {
+      //console.log(입력한아이디, 입력한비번);
+      db.collection("user-login").findOne(
+        { id: 입력한아이디 },
+        function (에러, 결과) {
+          if (에러) return done(에러);
+
+          if (!결과)
+            return done(null, false, { message: "존재하지않는 아이디요" });
+          if (입력한비번 == 결과.pw) {
+            return done(null, 결과);
+          } else {
+            return done(null, false, { message: "비번틀렸어요" });
+          }
+        }
+      );
+    }
+  )
+);
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (아이디, done) {
+  db.collection("user-login").findOne({ id: 아이디 }, function (에러, 결과) {
+    done(null, 결과);
+  });
+});
+
+//~경로로 요청을했을때 미들함수 저 로그인했니를 거치면
+// app.get("/request", 로그인했니, function (req, res) {
+//   db.collection("post")
+//     .find()
+//     .toArray(function (에러, 결과) {
+//       console.log(결과);
+//       res.render("request.ejs", { posts: 결과, 사용자: req.user });
+//     });
+// });
+
+//요청사항 리스트
+app.get("/request", 로그인했니, function (req, res) {
+  db.collection("test")
+    .find()
+    .toArray(function (에러, 결과) {
+      console.log(결과);
+      res.render("request.ejs", { test: 결과, posts: 결과, 사용자: req.user });
     });
 });
 
@@ -55,34 +152,55 @@ app.get("/request", function (req, res) {
 // });
 
 //요청사항 전송
-app.post("/add", function (req, res) {
-  db.collection("test").insertOne(
-    { request: req.body.request },
-    function (req, res) {
-      console.log("요청사항 전송 완료");
+app.post("/add-request", 로그인했니, function (req, res) {
+  db.collection("request-counter").findOne(
+    { name: "게시물갯수" },
+    function (에러, 결과) {
+      var 총게시물갯수 = 결과.totalRequest;
+      db.collection("test").insertOne(
+        { _id: 총게시물갯수 + 1, request: req.body.request },
+        function (에러, 결과) {
+          console.log("요청사항 전송 완료");
+          db.collection("request-counter").updateOne(
+            { name: "게시물갯수" },
+            { $inc: { totalRequest: 1 } },
+            function (에러, 결과) {
+              if (에러) {
+                return console.log(에러);
+              }
+              console.log("요청사항 +1 완료");
+              res.redirect("/request");
+            }
+          );
+        }
+      );
     }
   );
-  res.redirect("/request");
 });
 
-// 관리자 페이지
-
-//간식관리 페이지
-app.get("/admin-snack-list", function (req, res) {
-  db.collection("test")
-    .find()
-    .toArray(function (에러, 결과) {
-      console.log(결과);
-      res.render("admin-snack-list.ejs", { test: 결과 });
-    });
+//요청사항 삭제
+app.delete("/delete-request", function (req, res) {
+  req.body._id = parseInt(req.body._id);
+  db.collection("test").deleteOne(req.body, function (에러, 결과) {
+    console.log("삭제완료");
+    res.redirect("/request");
+  });
 });
 
-//고객관리 페이지
-app.get("/admin-user-list", function (req, res) {
-  db.collection("test")
-    .find()
-    .toArray(function (에러, 결과) {
-      console.log(결과);
-      res.render("admin-user-list.ejs", { test: 결과 });
-    });
+function 로그인했니(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+
+app.get("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      console.log(err);
+      return next(err);
+    }
+    res.redirect("/login");
+  });
 });
