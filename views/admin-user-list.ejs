@@ -42,21 +42,27 @@
 
       <div class="container" style="height: 600px; overflow-y: scroll">
         <ul class="list-group">
-          <% for (let i = test.length - 1; i >= 0; i--){ %>
+          <% for (let i = userList.length - 1; i >= 0; i--){ %>
           <li
             class="list-group-item"
-            style="display: flex; justify-content: space-between"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
           >
-            <p><%= test[i].request %></p>
+            <p><%= userList[i].name %></p>
             <button>상세</button>
           </li>
           <% } %>
         </ul>
       </div>
 
-      <button style="float: right; margin-top: 30px; margin-right: 5px">
-        고객사 등록
-      </button>
+      <a href="/sign-up">
+        <button style="float: right; margin-top: 30px; margin-right: 5px">
+          고객사 등록
+        </button></a
+      >
       <div style="clear: both"></div>
     </div>
 

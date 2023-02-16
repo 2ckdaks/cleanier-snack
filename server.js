@@ -39,6 +39,20 @@ app.get("/", function (req, res) {
   res.render("index.ejs");
 });
 
+//업체등록
+app.get("/sign-up", function (req, res) {
+  res.render("sign-up.ejs");
+});
+app.post("/sign-up", function (req, res) {
+  db.collection("user-login").insertOne(
+    { name: req.body.user_name, id: req.body.user_id, pw: req.body.user_pw },
+    function (에러, 결과) {
+      console.log("업체등록 완료");
+      res.redirect("/admin-user-list");
+    }
+  );
+});
+
 // 관리자 페이지
 
 //간식관리 페이지
@@ -48,6 +62,16 @@ app.get("/admin-snack-list", function (req, res) {
     .toArray(function (에러, 결과) {
       console.log(결과);
       res.render("admin-snack-list.ejs", { test: 결과 });
+    });
+});
+
+//고객관리 페이지
+app.get("/admin-user-list", function (req, res) {
+  db.collection("user-login")
+    .find()
+    .toArray(function (에러, 결과) {
+      console.log(결과);
+      res.render("admin-user-list.ejs", { userList: 결과 });
     });
 });
 
@@ -70,16 +94,6 @@ app.get("/fail", function (req, res) {
 
 app.get("/index-login", function (req, res) {
   res.render("index-login.ejs");
-});
-
-//고객관리 페이지
-app.get("/admin-user-list", function (req, res) {
-  db.collection("test")
-    .find()
-    .toArray(function (에러, 결과) {
-      console.log(결과);
-      res.render("admin-user-list.ejs", { test: 결과 });
-    });
 });
 
 //로그인에 필요함 (로컬스트러지 인증방식)
@@ -134,22 +148,17 @@ passport.deserializeUser(function (아이디, done) {
 //요청사항 리스트
 app.get("/request", 로그인했니, function (req, res) {
   db.collection("test")
-    .find()
+    .find({ writer: req.user._id })
     .toArray(function (에러, 결과) {
       console.log(결과);
-      res.render("request.ejs", { test: 결과, posts: 결과, 사용자: req.user });
+      res.render("request.ejs", {
+        test: 결과,
+        posts: 결과,
+        사용자: req.user,
+        writer: req.user._id,
+      });
     });
 });
-
-//작성자가 '이창민'인것만 출력
-// app.get("/request", function (req, res) {
-//   db.collection("test")
-//     .find({ writer: "이창민" })
-//     .toArray(function (에러, 결과) {
-//       console.log(결과);
-//       res.render("request.ejs", { test: 결과 });
-//     });
-// });
 
 //요청사항 전송
 app.post("/add-request", 로그인했니, function (req, res) {
@@ -158,7 +167,11 @@ app.post("/add-request", 로그인했니, function (req, res) {
     function (에러, 결과) {
       var 총게시물갯수 = 결과.totalRequest;
       db.collection("test").insertOne(
-        { _id: 총게시물갯수 + 1, request: req.body.request },
+        {
+          _id: 총게시물갯수 + 1,
+          request: req.body.request,
+          writer: req.user._id,
+        },
         function (에러, 결과) {
           console.log("요청사항 전송 완료");
           db.collection("request-counter").updateOne(
