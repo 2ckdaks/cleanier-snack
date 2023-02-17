@@ -10,7 +10,7 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
-    <link href="../css/request.css" rel="stylesheet" />
+    <link href="../css/admin-user-detail.css" rel="stylesheet" />
   </head>
 
   <body>
@@ -18,15 +18,15 @@
 
     <div class="main-container">
       <div class="user-snack">
-        <h4>한국공간데이터 간식 목록</h4>
+        <h4><%= 업체명.name %> 간식 목록</h4>
         <hr />
         <div class="container" style="height: 600px; overflow-y: scroll">
           <div class="row">
             <div class="col-12">
               <ul class="list-group">
-                <% for (let i = test.length - 1; i >= 0; i--){ %>
+                <% for (let i = 요청사항.length - 1; i >= 0; i--){ %>
                 <li class="list-group-item">
-                  <p><%= test[i].request %></p>
+                  <p><%= 요청사항[i].request %></p>
                 </li>
                 <% } %>
               </ul>
@@ -54,12 +54,9 @@
 
           <div class="container" style="height: 400px; overflow-y: scroll">
             <ul class="list-group">
-              <% for (let i = test.length - 1; i >= 0; i--){ %>
+              <% for (let i = 요청사항.length - 1; i >= 0; i--){ %>
               <li class="list-group-item">
-                <p><%= test[i].request %></p>
-                <!--관리자 기능에서 쓸만한 삭제버튼
-                <button class="delete" data-id="<%=test[i]._id %>">삭제</button>
-                -->
+                <p><%= 요청사항[i].request %></p>
               </li>
               <% } %>
             </ul>
@@ -74,23 +71,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-
-    <!--관리자 기능에서 쓸만한 삭제기능
-    <script>
-      $(".delete").click(function (e) {
-        $.ajax({
-          method: "DELETE",
-          url: "/delete-request",
-          data: { _id: e.target.dataset.id },
-        })
-          .done((결과) => {
-            $(this).parent("li").fadeOut();
-          })
-          .fail((에러) => {
-            console.log(에러);
-          });
-      });
-      -->
     </script>
   </body>
 </html>

@@ -1,0 +1,17 @@
+.nav-container {
+  width: 80%;
+  height: 100px;
+  margin: auto;
+  text-align: center;
+}
+
+.list-container {
+  width: 80%;
+  height: 1000px;
+  margin: auto;
+}
+
+a {
+  color: black;
+  text-decoration-line: none;
+}
