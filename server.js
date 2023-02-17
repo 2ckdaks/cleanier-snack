@@ -166,7 +166,7 @@ app.post("/add", function (req, res) {
     { _id: 1 },
     { $push: { snack: { img: "img-1", snack: "snack-1" } } }
   );
-  res.redirect("/add-snack2");
+  res.redirect("/admin-snack-list");
 });
 
 //로그아웃

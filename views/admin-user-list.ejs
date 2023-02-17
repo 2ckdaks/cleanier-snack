@@ -52,14 +52,19 @@
             "
           >
             <p><%= userList[i].name %></p>
-            <button>상세</button>
+            <a href="/admin-user-detail/<%= userList[i]._id %>"
+              ><button class="btn btn-success">상세</button></a
+            >
           </li>
           <% } %>
         </ul>
       </div>
 
       <a href="/sign-up">
-        <button style="float: right; margin-top: 30px; margin-right: 5px">
+        <button
+          style="float: right; margin-top: 30px; margin-right: 5px"
+          class="btn btn-success"
+        >
           고객사 등록
         </button></a
       >
