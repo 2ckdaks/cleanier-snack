@@ -164,7 +164,7 @@ app.get("/add-snack2", function (req, res) {
 app.post("/add", function (req, res) {
   db.collection("test2").updateOne(
     { _id: 1 },
-    { $push: { snack: { img: "img-1", snack: "snack-1" } } }
+    { $push: { snack2: { img: "img-2", snack: "snack-2" } } }
   );
   res.redirect("/admin-snack-list");
 });
