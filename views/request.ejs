@@ -18,17 +18,17 @@
 
     <div class="main-container">
       <div class="user-snack">
-        <h4>한국공간데이터 간식 목록</h4>
+        <h4><%=사용자.name %> 간식목록</h4>
         <hr />
         <div class="container" style="height: 600px; overflow-y: scroll">
           <div class="row">
             <div class="col-12">
               <ul class="list-group">
-                <% for (let i = test.length - 1; i >= 0; i--){ %>
+                <!-- <% for (let i = test.length - 1; i >= 0; i--){ %>
                 <li class="list-group-item">
                   <p><%= test[i].request %></p>
                 </li>
-                <% } %>
+                <% } %> -->
               </ul>
             </div>
           </div>
@@ -47,7 +47,13 @@
               required
               placeholder="요청사항을 입력해주세요"
             ></textarea>
-            <button type="submit" class="btn btn-success">요청하기</button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              style="background-color: #00d2b7; border: none"
+            >
+              요청하기
+            </button>
           </form>
 
           <br /><br /><br />

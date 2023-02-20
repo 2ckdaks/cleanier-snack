@@ -53,7 +53,12 @@
           >
             <p><%= userList[i].name %></p>
             <a href="/admin-user-detail/<%= userList[i]._id %>"
-              ><button class="btn btn-success">상세</button></a
+              ><button
+                class="btn btn-success"
+                style="background-color: #00d2b7; border: none"
+              >
+                상세
+              </button></a
             >
           </li>
           <% } %>
@@ -62,7 +67,13 @@
 
       <a href="/sign-up">
         <button
-          style="float: right; margin-top: 30px; margin-right: 5px"
+          style="
+            float: right;
+            margin-top: 30px;
+            margin-right: 5px;
+            background-color: #00d2b7;
+            border: none;
+          "
           class="btn btn-success"
         >
           고객사 등록
