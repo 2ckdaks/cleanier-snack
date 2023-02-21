@@ -164,29 +164,26 @@ app.delete("/delete-request", function (req, res) {
 });
 
 app.post("/update-good", function (req, res) {
-  req.body._id = parseInt(req.body._id);
   db.collection("user-request").updateOne(
-    { _id: parseInt(25) },
+    { _id: parseInt(26) },
     { $inc: { good: 1 } },
     function (에러, 결과) {
-      console.log("수정완료");
+      if (에러) {
+        console.log(에러);
+      }
       res.redirect("/request");
     }
   );
 });
-//좋아요 증가
-//쿠키버튼을 클릭했을때
-// db.collection("user-request").updateOne(
-//    { 클릭한곳의 자료를 },
-//   { $inc: { good: 1 } },
-//   function (에러, 결과) {
-//     console.log("수정완료");
-//   }
-// );
 
 //간식목록 설정
 app.get("/add-snack", 로그인했니, function (req, res) {
-  res.render("add-snack.ejs");
+  //관리자만 가능
+  if (req.user.name == "test") {
+    res.render("add-snack.ejs");
+  } else {
+    res.send("관리자 아님");
+  }
 });
 app.post("/add", function (req, res) {
   db.collection("test2").updateOne(
