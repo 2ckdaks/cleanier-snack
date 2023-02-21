@@ -11,6 +11,13 @@
       crossorigin="anonymous"
     />
     <link href="../css/request.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body>
@@ -61,11 +68,16 @@
           <div class="container" style="height: 400px; overflow-y: scroll">
             <ul class="list-group">
               <% for (let i = test.length - 1; i >= 0; i--){ %>
-              <li class="list-group-item">
+              <li
+                class="list-group-item"
+                style="display: flex; justify-content: space-between"
+              >
                 <p><%= test[i].request %></p>
-                <!--관리자 기능에서 쓸만한 삭제버튼
-                <button class="delete" data-id="<%=test[i]._id %>">삭제</button>
-                -->
+                <span class="plus">
+                  <i class="fa-solid fa-cookie fa-2x">
+                    <%= test[i].good %></i
+                  ></span
+                >
               </li>
               <% } %>
             </ul>
@@ -80,23 +92,18 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-
-    <!--관리자 기능에서 쓸만한 삭제기능
     <script>
-      $(".delete").click(function (e) {
+      $(".plus").click(function (e) {
         $.ajax({
-          method: "DELETE",
-          url: "/delete-request",
+          method: "POST",
+          url: "/update-good",
           data: { _id: e.target.dataset.id },
         })
-          .done((결과) => {
-            $(this).parent("li").fadeOut();
-          })
+          .done((결과) => {})
           .fail((에러) => {
             console.log(에러);
           });
       });
     </script>
-    -->
   </body>
 </html>

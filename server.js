@@ -4,7 +4,11 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
+const ObjectId = require("mongodb").ObjectId;
 app.set("view engine", "ejs");
+const bcrypt = require("bcrypt");
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -56,7 +60,6 @@ app.get("/index-login", function (req, res) {
   res.render("index-login.ejs");
 });
 
-//로그인에 필요함 (로컬스트러지 인증방식)
 passport.use(
   new LocalStrategy(
     {
@@ -66,31 +69,32 @@ passport.use(
       passReqToCallback: false,
     },
     function (입력한아이디, 입력한비번, done) {
-      //console.log(입력한아이디, 입력한비번);
-      db.collection("user-login").findOne(
+      console.log(입력한아이디, 입력한비번);
+      db.collection("login").findOne(
         { id: 입력한아이디 },
         function (에러, 결과) {
           if (에러) return done(에러);
 
           if (!결과)
             return done(null, false, { message: "존재하지않는 아이디요" });
-          if (입력한비번 == 결과.pw) {
-            return done(null, 결과);
-          } else {
-            return done(null, false, { message: "비번틀렸어요" });
-          }
+          bcrypt.compare(입력한비번, 결과.pw, function (에러, isMatch) {
+            if (isMatch) {
+              return done(null, 결과);
+            } else {
+              return done(null, false, { message: "Wrong Password" });
+            }
+          });
         }
       );
     }
   )
 );
-
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
 passport.deserializeUser(function (아이디, done) {
-  db.collection("user-login").findOne({ id: 아이디 }, function (에러, 결과) {
+  db.collection("login").findOne({ id: 아이디 }, function (에러, 결과) {
     done(null, 결과);
   });
 });
@@ -113,12 +117,13 @@ app.get("/request", 로그인했니, function (req, res) {
         test: 결과,
         사용자: req.user,
         writer: req.user._id,
+        good: req.user.good,
       });
     });
 });
 
 //요청사항 전송
-app.post("/add-request", 로그인했니, function (req, res) {
+app.post("/add-request", function (req, res) {
   db.collection("counter").findOne(
     { name: "request-counter" },
     function (에러, 결과) {
@@ -128,6 +133,7 @@ app.post("/add-request", 로그인했니, function (req, res) {
           _id: 총게시물갯수 + 1,
           request: req.body.request,
           writer: req.user._id,
+          good: 0,
         },
         function (에러, 결과) {
           console.log("요청사항 전송 완료");
@@ -157,8 +163,29 @@ app.delete("/delete-request", function (req, res) {
   });
 });
 
+app.post("/update-good", function (req, res) {
+  req.body._id = parseInt(req.body._id);
+  db.collection("user-request").updateOne(
+    { _id: parseInt(25) },
+    { $inc: { good: 1 } },
+    function (에러, 결과) {
+      console.log("수정완료");
+      res.redirect("/request");
+    }
+  );
+});
+//좋아요 증가
+//쿠키버튼을 클릭했을때
+// db.collection("user-request").updateOne(
+//    { 클릭한곳의 자료를 },
+//   { $inc: { good: 1 } },
+//   function (에러, 결과) {
+//     console.log("수정완료");
+//   }
+// );
+
 //간식목록 설정
-app.get("/add-snack2", function (req, res) {
+app.get("/add-snack", 로그인했니, function (req, res) {
   res.render("add-snack.ejs");
 });
 app.post("/add", function (req, res) {
@@ -181,7 +208,7 @@ app.get("/logout", 로그인했니, function (req, res, next) {
 });
 
 //간식관리
-app.get("/admin-snack-list", function (req, res) {
+app.get("/admin-snack-list", 로그인했니, function (req, res) {
   db.collection("test")
     .find()
     .toArray(function (에러, 결과) {
@@ -191,8 +218,8 @@ app.get("/admin-snack-list", function (req, res) {
 });
 
 //고객관리 페이지
-app.get("/admin-user-list", function (req, res) {
-  db.collection("user-login")
+app.get("/admin-user-list", 로그인했니, function (req, res) {
+  db.collection("login")
     .find()
     .toArray(function (에러, 결과) {
       console.log(결과);
@@ -201,48 +228,55 @@ app.get("/admin-user-list", function (req, res) {
 });
 
 //고객상세 페이지
-app.get("/admin-user-detail/:id", async function async(req, res) {
-  const 업체명 = await db
-    .collection("user-login")
-    .findOne({ _id: parseInt(req.params.id) });
-  const 요청사항 = await db
+app.get("/admin-user-detail/:id", 로그인했니, async function async(req, res) {
+  const client = await db
+    .collection("login")
+    .findOne({ _id: ObjectId(req.params.id) });
+  const request = await db
     .collection("user-request")
-    .find({ writer: parseInt(req.params.id) })
+    .find({ writer: ObjectId(req.params.id) })
     .toArray();
-  res.render("admin-user-detail.ejs", { 업체명, 요청사항 });
+  res.render("admin-user-detail.ejs", { client, request });
 });
 
 //업체등록
-app.get("/sign-up", function (req, res) {
+app.get("/sign-up", 로그인했니, function (req, res) {
   res.render("sign-up.ejs");
 });
-app.post("/sign-up", function (req, res) {
-  db.collection("counter").findOne(
-    { name: "user-counter" },
-    function (에러, 결과) {
-      var 총게시물갯수 = 결과.totalUser;
-      db.collection("user-login").insertOne(
+
+app.post("/sign-up", (req, res) => {
+  let id = req.body.user_id;
+  let pw = req.body.user_pw;
+  let name = req.body.user_name;
+  const saltRounds = 10;
+
+  bcrypt.hash(pw, saltRounds, (err, hash) => {
+    try {
+      db.collection("login").findOne(
         {
-          _id: 총게시물갯수 + 1,
-          name: req.body.user_name,
-          id: req.body.user_id,
-          pw: req.body.user_pw,
+          id: id,
         },
-        function (에러, 결과) {
-          console.log("업체등록 완료");
-          db.collection("counter").updateOne(
-            { name: "user-counter" },
-            { $inc: { totalUser: 1 } },
-            function (에러, 결과) {
-              if (에러) {
-                return console.log(에러);
+        (error, result) => {
+          if (result) {
+            res.send({
+              code: 0,
+            });
+          } else {
+            db.collection("login").insertOne(
+              {
+                id: id,
+                pw: hash,
+                name: name,
+              },
+              (error, result) => {
+                res.redirect("/admin-user-list");
               }
-              console.log("업체카운팅 +1 완료");
-              res.redirect("/admin-user-list");
-            }
-          );
+            );
+          }
         }
       );
+    } catch {
+      console.log("err: " + err);
     }
-  );
+  });
 });

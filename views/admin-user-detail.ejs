@@ -14,21 +14,32 @@
   </head>
 
   <body>
-    <%- include('user-nav.html') %>
-
+    <nav class="navbar navbar-expand-sm navbar" style="padding: 30px">
+      <div class="container-fluid">
+        <a href="/index-login"><img src="../namecard.png" /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="collapsibleNavbar"
+        ></div>
+      </div>
+    </nav>
+    
     <div class="main-container">
       <div class="user-snack">
-        <h4><%= 업체명.name %> 간식 목록</h4>
+        <h4><%= client.name %> 간식 목록</h4>
         <hr />
         <div class="container" style="height: 600px; overflow-y: scroll">
           <div class="row">
             <div class="col-12">
               <ul class="list-group">
-                <!-- <% for (let i = 요청사항.length - 1; i >= 0; i--){ %>
-                <li class="list-group-item">
-                  <p><%= 요청사항[i].request %></p>
-                </li>
-                <% } %> -->
               </ul>
             </div>
           </div>
@@ -42,9 +53,9 @@
 
           <div class="container" style="height: 400px; overflow-y: scroll">
             <ul class="list-group">
-              <% for (let i = 요청사항.length - 1; i >= 0; i--){ %>
+              <% for (let i = request.length - 1; i >= 0; i--){ %>
               <li class="list-group-item">
-                <p><%= 요청사항[i].request %></p>
+                <p><%= request[i].request %></p>
               </li>
               <% } %>
             </ul>

@@ -16,7 +16,7 @@
   <body>
     <nav class="navbar navbar-expand-sm navbar" style="padding: 30px">
         <div class="container-fluid">
-          <a href="/"><img src="../namecard.png" /></a>
+          <a href="/index-login"><img src="../namecard.png" /></a>
           <button
             class="navbar-toggler"
             type="button"
@@ -41,16 +41,27 @@
         </div>
 
         <form action="/add" method="POST">
-            <h4>test</h4>
-            <hr />
-            <textarea
+            <!-- <hr /> -->
+            <form action="/sign-up" method="post">
+              <h1>간식 등록</h1>
+        
+              <fieldset>
+                <label for="name">간식 이름:</label>
+                <input type="text" id="name" name="user_name" style="background-color: #E8F0FE;"/>
+        
+                <label for="mail">간식 사진:</label>
+                <input type="file" name="user_id" accept="image/gif, image/jpeg, image/png" style="background-color: #E8F0FE;"/>
+              </fieldset>
+        
+              <a><button type="submit" id="submit" style="background-color: #00d2b7; border: none;">간식 등록</button>
+            </form>
+            <!-- <textarea
               name="request"
               style="height: 200px"
               minlength="1"
               required
               placeholder="요청사항을 입력해주세요"
-            ></textarea>
-            <button type="submit" class="btn btn-success">요청하기</button>
+            ></textarea> -->
           </form>
 
     <script
