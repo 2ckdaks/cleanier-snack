@@ -42,13 +42,20 @@
 
       <div class="container" style="height: 600px; overflow-y: scroll">
         <ul class="list-group">
-          <% for (let i = test.length - 1; i >= 0; i--){ %>
+          <% for (let i = snack.length - 1; i >= 0; i--){ %>
           <li
             class="list-group-item"
             style="display: flex; justify-content: space-between"
           >
-            <p><%= test[i].request %></p>
-            <button>삭제</button>
+            <p><%= snack[i].name %></p>
+            <%= snack[i].img %>
+            <button
+              style="background-color: #00d2b7; border: none"
+              class="btn btn-success snack-delete"
+              data-id="<%= snack[i]._id %>"
+            >
+              삭제
+            </button>
           </li>
           <% } %>
         </ul>
@@ -81,5 +88,20 @@
       integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
       crossorigin="anonymous"
     ></script>
+    <script>
+      $(".snack-delete").click(function (e) {
+        $.ajax({
+          method: "DELETE",
+          url: "/snack-delete",
+          data: { _id: e.target.dataset.id },
+        })
+          .done((결과) => {
+            $(this).parent("li").fadeOut();
+          })
+          .fail(() => {
+            //코드작성
+          });
+      });
+    </script>
   </body>
 </html>

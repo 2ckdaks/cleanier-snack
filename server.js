@@ -13,6 +13,7 @@ app.use(methodOverride("_method"));
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
+const { name } = require("ejs");
 
 app.use(
   session({ secret: "비밀코드", resave: true, saveUninitialized: false })
@@ -176,25 +177,6 @@ app.post("/update-good", function (req, res) {
   );
 });
 
-//간식목록 설정
-app.get("/add-snack", 로그인했니, function (req, res) {
-  //관리자만 가능
-  if (req.user.name == "test") {
-    res.render("add-snack.ejs");
-  } else {
-    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-    res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
-    res.write('<script>window.location="index-login"</script>');
-  }
-});
-app.post("/add", function (req, res) {
-  db.collection("test2").updateOne(
-    { _id: 1 },
-    { $push: { snack2: { img: "img-2", snack: "snack-2" } } }
-  );
-  res.redirect("/admin-snack-list");
-});
-
 //로그아웃
 app.get("/logout", 로그인했니, function (req, res, next) {
   req.logout(function (err) {
@@ -208,12 +190,43 @@ app.get("/logout", 로그인했니, function (req, res, next) {
 
 //간식관리
 app.get("/admin-snack-list", 로그인했니, function (req, res) {
-  db.collection("test")
+  db.collection("snack-list")
     .find()
     .toArray(function (에러, 결과) {
       console.log(결과);
-      res.render("admin-snack-list.ejs", { test: 결과 });
+      res.render("admin-snack-list.ejs", { snack: 결과 });
     });
+});
+
+//간식목록 추가
+app.get("/add-snack", 로그인했니, function (req, res) {
+  if (req.user.name == "test") {
+    res.render("add-snack.ejs");
+  } else {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
+    res.write('<script>window.location="index-login"</script>');
+  }
+});
+app.post("/add-snack", function (req, res) {
+  db.collection("snack-list").insertOne({
+    name: req.body.snack_name,
+    img: req.body.snack_img,
+  });
+  res.redirect("/admin-snack-list");
+});
+
+//간식목록 삭제
+app.delete("/snack-delete", function (req, res) {
+  db.collection("snack-list").deleteOne(
+    { _id: ObjectId(req.body._id) },
+    function (에러, 결과) {
+      if (에러) {
+        console.log(에러);
+      }
+      res.status(200).send({ message: "삭제 성공" });
+    }
+  );
 });
 
 //고객관리 페이지
