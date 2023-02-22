@@ -114,7 +114,7 @@ app.get("/request", 로그인했니, function (req, res) {
     .toArray(function (에러, 결과) {
       console.log(결과);
       res.render("request.ejs", {
-        test: 결과,
+        total: 결과,
         사용자: req.user,
         writer: req.user._id,
         good: req.user.good,
@@ -165,7 +165,7 @@ app.delete("/delete-request", function (req, res) {
 
 app.post("/update-good", function (req, res) {
   db.collection("user-request").updateOne(
-    { _id: parseInt(26) },
+    { _id: parseInt(req.body._id) },
     { $inc: { good: 1 } },
     function (에러, 결과) {
       if (에러) {
@@ -182,7 +182,9 @@ app.get("/add-snack", 로그인했니, function (req, res) {
   if (req.user.name == "test") {
     res.render("add-snack.ejs");
   } else {
-    res.send("관리자 아님");
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
+    res.write('<script>window.location="index-login"</script>');
   }
 });
 app.post("/add", function (req, res) {
@@ -216,29 +218,47 @@ app.get("/admin-snack-list", 로그인했니, function (req, res) {
 
 //고객관리 페이지
 app.get("/admin-user-list", 로그인했니, function (req, res) {
-  db.collection("login")
-    .find()
-    .toArray(function (에러, 결과) {
-      console.log(결과);
-      res.render("admin-user-list.ejs", { userList: 결과 });
-    });
+  if (req.user.name == "test") {
+    db.collection("login")
+      .find()
+      .toArray(function (에러, 결과) {
+        console.log(결과);
+        res.render("admin-user-list.ejs", { userList: 결과 });
+      });
+  } else {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
+    res.write('<script>window.location="index-login"</script>');
+  }
 });
 
 //고객상세 페이지
 app.get("/admin-user-detail/:id", 로그인했니, async function async(req, res) {
-  const client = await db
-    .collection("login")
-    .findOne({ _id: ObjectId(req.params.id) });
-  const request = await db
-    .collection("user-request")
-    .find({ writer: ObjectId(req.params.id) })
-    .toArray();
-  res.render("admin-user-detail.ejs", { client, request });
+  if (req.user.name == "test") {
+    const client = await db
+      .collection("login")
+      .findOne({ _id: ObjectId(req.params.id) });
+    const request = await db
+      .collection("user-request")
+      .find({ writer: ObjectId(req.params.id) })
+      .toArray();
+    res.render("admin-user-detail.ejs", { client, request });
+  } else {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
+    res.write('<script>window.location="index-login"</script>');
+  }
 });
 
 //업체등록
 app.get("/sign-up", 로그인했니, function (req, res) {
-  res.render("sign-up.ejs");
+  if (req.user.name == "test") {
+    res.render("sign-up.ejs");
+  } else {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
+    res.write('<script>window.location="index-login""</script>');
+  }
 });
 
 app.post("/sign-up", (req, res) => {

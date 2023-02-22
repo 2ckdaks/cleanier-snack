@@ -11,6 +11,13 @@
       crossorigin="anonymous"
     />
     <link href="../css/admin-user-detail.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body>
@@ -54,8 +61,15 @@
           <div class="container" style="height: 400px; overflow-y: scroll">
             <ul class="list-group">
               <% for (let i = request.length - 1; i >= 0; i--){ %>
-              <li class="list-group-item">
+              <li class="list-group-item" style="display: flex; justify-content: space-between">
                 <p><%= request[i].request %></p>
+                <i
+                  class="fa-solid fa-cookie fa-2x"
+                  id="<%= request[i]._id %>"
+                  data-id="<%= request[i]._id %>"
+                >
+                  <%= request[i].good %></i
+                >
               </li>
               <% } %>
             </ul>
