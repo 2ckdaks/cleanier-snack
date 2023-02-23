@@ -10,6 +10,28 @@ const bcrypt = require("bcrypt");
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 let multer = require("multer");
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/snack-img");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+var path = require("path");
+var upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, callback) {
+    var ext = path.extname(file.originalname);
+    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
+      return callback(new Error("PNG, JPG만 업로드하세요"));
+    }
+    callback(null, true);
+  },
+  limits: {
+    fileSize: 1024 * 1024,
+  },
+});
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -189,30 +211,6 @@ app.get("/logout", 로그인했니, function (req, res, next) {
   });
 });
 
-//이미지 업로드
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./public/snack-image");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-
-var upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, callback) {
-    var ext = path.extname(file.originalname);
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
-      return callback(new Error("PNG, JPG만 업로드 해주세요"));
-    }
-    callback(null, true);
-  },
-  limits: {
-    fileSize: 1024 * 1024,
-  },
-});
-
 //간식관리
 app.get("/admin-snack-list", 로그인했니, function (req, res) {
   db.collection("snack-list")
@@ -234,10 +232,10 @@ app.get("/add-snack", 로그인했니, function (req, res) {
   }
 });
 app.post("/add-snack", upload.single("snack_img"), function (req, res) {
-  db.collection("snack-list").insertOne({
-    name: req.body.snack_name,
-    img: req.body.snack_img,
-  });
+  // db.collection("snack-list").insertOne({
+  //   name: req.body.snack_name,
+  //   img: req.body.snack_img,
+  // });
   res.redirect("/admin-snack-list");
 });
 
