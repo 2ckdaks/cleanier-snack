@@ -232,10 +232,10 @@ app.get("/add-snack", 로그인했니, function (req, res) {
   }
 });
 app.post("/add-snack", upload.single("snack_img"), function (req, res) {
-  // db.collection("snack-list").insertOne({
-  //   name: req.body.snack_name,
-  //   img: req.body.snack_img,
-  // });
+  db.collection("snack-list").insertOne({
+    name: req.body.snack_name,
+    img: req.body.snack_img,
+  });
   res.redirect("/admin-snack-list");
 });
 
@@ -278,7 +278,8 @@ app.get("/admin-user-detail/:id", 로그인했니, async function async(req, res
       .collection("user-request")
       .find({ writer: ObjectId(req.params.id) })
       .toArray();
-    res.render("admin-user-detail.ejs", { client, request });
+    const snack = await db.collection("snack-list").find().toArray();
+    res.render("admin-user-detail.ejs", { client, request, snack });
   } else {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
