@@ -276,7 +276,11 @@ app.get("/admin-user-detail/:id", 로그인했니, async function async(req, res
       .find({ writer: ObjectId(req.params.id) })
       .toArray();
     const snack = await db.collection("snack-list").find().toArray();
-    res.render("admin-user-detail.ejs", { client, request, snack });
+    const user_snack = await db
+      .collection("user-snack")
+      .find({ client: req.params.id })
+      .toArray();
+    res.render("admin-user-detail.ejs", { client, request, snack, user_snack });
   } else {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
@@ -288,6 +292,7 @@ app.get("/admin-user-detail/:id", 로그인했니, async function async(req, res
 app.post("/snack-plus", function (req, res) {
   db.collection("user-snack").insertOne({
     snack_src: req.body.snack_img,
+    client: req.body.client,
   });
   res.redirect("/admin-user-list");
 });

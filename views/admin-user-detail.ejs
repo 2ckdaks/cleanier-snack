@@ -41,12 +41,28 @@
     
     <div class="main-container">
       <div class="user-snack">
-        <h4><%= client.name %> 간식 목록</h4>
+        <h4><%= client.name %>간식 목록</h4>
+        <div style="display: none;" id="user_name"><%= client._id %></div>
         <hr />
         <div class="container" style="height: 600px; overflow-y: scroll">
           <div class="row">
             <div class="col-12">
               <ul class="list-group">
+                <% for (let i = user_snack.length - 1; i >= 0; i--){ %>
+                  <li
+                    class="list-group-item"
+                    style="display: flex; justify-content: space-between"
+                  >
+                    <div style="display: flex; justify-content: center">
+                      <div style="width: 50px; height: 50px">
+                        <img 
+                          style="width: 100%; height: 100%"
+                          src="<%= user_snack[i].snack_src %>"
+                        />
+                      </div>
+                    </div>
+                  </li>
+                  <% } %>
               </ul>
             </div>
           </div>
@@ -97,13 +113,13 @@
               <% for (let i = request.length - 1; i >= 0; i--){ %>
               <li class="list-group-item" style="display: flex; justify-content: space-between">
                 <p><%= request[i].request %></p>
-                <i
+                <!-- <i
                   class="fa-solid fa-cookie fa-2x"
                   id="<%= request[i]._id %>"
                   data-id="<%= request[i]._id %>"
                 >
                   <%= request[i].good %></i
-                >
+                > -->
               </li>
               <% } %>
             </ul>
@@ -122,10 +138,11 @@
     <script>
       $('.snack-plus').click(function(e){
         var src = $('#snack_img').attr("src");
+        var user = $('#user_name').text();
         $.ajax({
           method:"POST",
           url:"/snack-plus",
-          data: { _id: e.target.dataset.id, snack_img:src},
+          data: { _id: e.target.dataset.id, snack_img: src, client: user},
         })
         .done((결과) => {
           $(".body").html(결과);
