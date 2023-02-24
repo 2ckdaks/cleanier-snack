@@ -20,7 +20,7 @@
     />
   </head>
 
-  <body>
+  <body class="body">
     <nav class="navbar navbar-expand-sm navbar" style="padding: 30px">
       <div class="container-fluid">
         <a href="/index-login"><img src="../namecard.png" /></a>
@@ -61,24 +61,22 @@
               class="list-group-item"
               style="display: flex; justify-content: space-between"
             >
-            <form action="/add-snack-info" method="POST">
               <div style="display: flex; justify-content: center">
                 <div style="width: 50px; height: 50px">
-                  <img name="snack-img"
+                  <img 
+                    id="snack_img"
                     style="width: 100%; height: 100%"
                     src="<%= snack[i].img %>"
                   />
                 </div>
                 <p style="padding-top: 10px; margin-left: 10px"
-                name="snack-name">
+                id="snack_name">
                   <%= snack[i].name %>
                 </p>
               </div>
-            </form>
-              <!-- <%= snack[i].img %> -->
               <button
                 style="background-color: #00d2b7; border: none"
-                class="btn btn-success snack-delete"
+                class="btn btn-success snack-plus"
                 data-id="<%= snack[i]._id %>"
               >
                 추가
@@ -88,8 +86,6 @@
           </ul>
         </div>
       </div>
-
-      
 
       <div class="user-container">
         <div class="user-req-free">
@@ -124,7 +120,20 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     </script>
     <script>
-
+      $('.snack-plus').click(function(e){
+        var src = $('#snack_img').attr("src");
+        $.ajax({
+          method:"POST",
+          url:"/snack-plus",
+          data: { _id: e.target.dataset.id, snack_img:src},
+        })
+        .done((결과) => {
+          $(".body").html(결과);
+        })
+        .fail((에러)=>{
+          console.log(에러);
+        });
+      });
     </script>
   </body>
 </html>

@@ -93,7 +93,6 @@ passport.use(
       passReqToCallback: false,
     },
     function (입력한아이디, 입력한비번, done) {
-      console.log(입력한아이디, 입력한비번);
       db.collection("login").findOne(
         { id: 입력한아이디 },
         function (에러, 결과) {
@@ -136,7 +135,6 @@ app.get("/request", 로그인했니, function (req, res) {
   db.collection("user-request")
     .find({ writer: req.user._id })
     .toArray(function (에러, 결과) {
-      console.log(결과);
       res.render("request.ejs", {
         total: 결과,
         사용자: req.user,
@@ -216,7 +214,6 @@ app.get("/admin-snack-list", 로그인했니, function (req, res) {
   db.collection("snack-list")
     .find()
     .toArray(function (에러, 결과) {
-      console.log(결과);
       res.render("admin-snack-list.ejs", { snack: 결과 });
     });
 });
@@ -232,6 +229,7 @@ app.get("/add-snack", 로그인했니, function (req, res) {
   }
 });
 app.post("/add-snack", upload.single("snack_img"), function (req, res) {
+  req.body._id = ObjectId(req.body._id);
   db.collection("snack-list").insertOne({
     name: req.body.snack_name,
     img: req.body.snack_img,
@@ -258,7 +256,6 @@ app.get("/admin-user-list", 로그인했니, function (req, res) {
     db.collection("login")
       .find()
       .toArray(function (에러, 결과) {
-        console.log(결과);
         res.render("admin-user-list.ejs", { userList: 결과 });
       });
   } else {
@@ -285,6 +282,14 @@ app.get("/admin-user-detail/:id", 로그인했니, async function async(req, res
     res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
     res.write('<script>window.location="index-login"</script>');
   }
+});
+
+//고객간식 추가
+app.post("/snack-plus", function (req, res) {
+  db.collection("user-snack").insertOne({
+    snack_src: req.body.snack_img,
+  });
+  res.redirect("/admin-user-list");
 });
 
 //업체등록

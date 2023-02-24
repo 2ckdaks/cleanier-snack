@@ -93,7 +93,7 @@ body {
     width: 100%;
     height: 50px;
     vertical-align: middle;
-    margin-top: 300px;
+    margin-top: 800px;
   }
 
   .user-snack {
@@ -113,6 +113,7 @@ body {
     width: 100%;
     height: 1000px;
     text-align: center;
+    margin-top: 200px;
   }
 
   .user-req-free textarea {
