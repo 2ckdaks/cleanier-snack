@@ -292,6 +292,7 @@ app.get("/admin-user-detail/:id", 로그인했니, async function async(req, res
 app.post("/snack-plus", function (req, res) {
   db.collection("user-snack").insertOne({
     snack_src: req.body.snack_img,
+    snack_name: req.body.snack_name,
     client: req.body.client,
   });
   res.redirect("/admin-user-list");

@@ -60,6 +60,9 @@
                           src="<%= user_snack[i].snack_src %>"
                         />
                       </div>
+                      <p style="padding-top: 10px; margin-left: 10px">
+                        <%= user_snack[i].snack_name %>
+                      </p>
                     </div>
                   </li>
                   <% } %>
@@ -86,9 +89,7 @@
                   />
                 </div>
                 <p style="padding-top: 10px; margin-left: 10px"
-                id="snack_name">
-                  <%= snack[i].name %>
-                </p>
+                id="snack_name"><%= snack[i].name %></p>
               </div>
               <button
                 style="background-color: #00d2b7; border: none"
@@ -139,10 +140,11 @@
       $('.snack-plus').click(function(e){
         var src = $('#snack_img').attr("src");
         var user = $('#user_name').text();
+        var snack = $('#snack_name').text();
         $.ajax({
           method:"POST",
           url:"/snack-plus",
-          data: { _id: e.target.dataset.id, snack_img: src, client: user},
+          data: { _id: e.target.dataset.id, snack_img: src, snack_name:snack ,client: user},
         })
         .done((결과) => {
           $(".body").html(결과);
