@@ -21,21 +21,68 @@
   </head>
 
   <body class="body">
-    <%- include('user-nav.html') %>
+    <nav class="navbar navbar-expand-sm navbar" style="padding: 30px">
+      <div class="container-fluid">
+        <a href="/index-login"><img src="../namecard.png" /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="collapsibleNavbar"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">서비스 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">상품 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">플랜 소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/request">간식 요청</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <div class="main-container">
       <div class="user-snack">
-        <h4><%=사용자.name %> 간식목록</h4>
+        <h4><%= client.name %> 간식목록</h4>
         <hr />
         <div class="container" style="height: 600px; overflow-y: scroll">
           <div class="row">
             <div class="col-12">
               <ul class="list-group">
-                <!-- <% for (let i = total.length - 1; i >= 0; i--){ %>
-                <li class="list-group-item">
-                  <p><%= total[i].request %></p>
+                <% for (let i = 0; i < user_snack.length; i++){ %>
+                <li
+                  class="list-group-item"
+                  style="display: flex; justify-content: space-between"
+                >
+                  <div style="display: flex; justify-content: center">
+                    <div style="width: 50px; height: 50px">
+                      <img
+                        style="width: 100%; height: 100%"
+                        src="<%= user_snack[i].snack_src %>"
+                      />
+                    </div>
+                    <p style="padding-top: 10px; margin-left: 10px">
+                      <%= user_snack[i].snack_name %>
+                    </p>
+                  </div>
                 </li>
-                <% } %> -->
+                <% } %>
               </ul>
             </div>
           </div>
@@ -65,25 +112,18 @@
 
           <br /><br /><br />
 
-          <div class="container" style="height: 400px; overflow-y: scroll">
+          <!-- <div class="container" style="height: 400px; overflow-y: scroll">
             <ul class="list-group">
-              <% for (let i = total.length - 1; i >= 0; i--){ %>
+              <% for (let i = request.length - 1; i >= 0; i--){ %>
               <li
                 class="list-group-item"
                 style="display: flex; justify-content: space-between"
               >
-                <p><%= total[i].request %></p>
-                <i
-                  class="fa-solid fa-cookie fa-2x"
-                  id="<%= total[i]._id %>"
-                  data-id="<%= total[i]._id %>"
-                >
-                  <%= total[i].good %></i
-                >
+                <p><%= request[i].request %></p>
               </li>
               <% } %>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

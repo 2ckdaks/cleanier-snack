@@ -37,6 +37,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const { name } = require("ejs");
+const { stringify } = require("querystring");
 
 app.use(
   session({ secret: "비밀코드", resave: true, saveUninitialized: false })
@@ -130,18 +131,32 @@ function 로그인했니(req, res, next) {
   }
 }
 
-//요청사항 리스트
-app.get("/request", 로그인했니, function (req, res) {
-  db.collection("user-request")
-    .find({ writer: req.user._id })
-    .toArray(function (에러, 결과) {
-      res.render("request.ejs", {
-        total: 결과,
-        사용자: req.user,
-        writer: req.user._id,
-        good: req.user.good,
-      });
-    });
+//고객 확인 페이지
+app.get("/request", 로그인했니, async function (req, res) {
+  const client = await db
+    .collection("login")
+    .findOne({ _id: ObjectId(req.user._id) });
+  const request = await db
+    .collection("user-request")
+    .find({ writer: ObjectId(req.user._id) })
+    .toArray();
+  const snack = await db.collection("snack-list").find().toArray();
+  const user_snack = await db
+    .collection("user-snack")
+    .find({ client: String(req.user._id) })
+    .toArray();
+  res.render("request.ejs", { client, request, snack, user_snack });
+  // db.collection("user-request")
+  //   .find({ writer: req.user._id })
+  //   .toArray(function (에러, 결과) {
+
+  //     res.render("request.ejs", {
+  //       total: 결과,
+  //       사용자: req.user,
+  //       writer: req.user._id,
+  //       good: req.user.good,
+  //     });
+  //   });
 });
 
 //요청사항 전송
@@ -211,16 +226,22 @@ app.get("/logout", 로그인했니, function (req, res, next) {
 
 //간식관리
 app.get("/admin-snack-list", 로그인했니, function (req, res) {
-  db.collection("snack-list")
-    .find()
-    .toArray(function (에러, 결과) {
-      res.render("admin-snack-list.ejs", { snack: 결과 });
-    });
+  if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
+    db.collection("snack-list")
+      .find()
+      .toArray(function (에러, 결과) {
+        res.render("admin-snack-list.ejs", { snack: 결과 });
+      });
+  } else {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
+    res.write('<script>window.location="index-login"</script>');
+  }
 });
 
 //간식목록 추가
 app.get("/add-snack", 로그인했니, function (req, res) {
-  if (req.user.name == "test") {
+  if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     res.render("add-snack.ejs");
   } else {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
@@ -252,7 +273,7 @@ app.delete("/snack-delete", function (req, res) {
 
 //고객관리 페이지
 app.get("/admin-user-list", 로그인했니, function (req, res) {
-  if (req.user.name == "test") {
+  if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     db.collection("login")
       .find()
       .toArray(function (에러, 결과) {
@@ -267,7 +288,7 @@ app.get("/admin-user-list", 로그인했니, function (req, res) {
 
 //고객상세 페이지
 app.get("/admin-user-detail/:id", 로그인했니, async function async(req, res) {
-  if (req.user.name == "test") {
+  if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     const client = await db
       .collection("login")
       .findOne({ _id: ObjectId(req.params.id) });
@@ -313,7 +334,7 @@ app.delete("/user-snack-delete", function (req, res) {
 
 //업체등록
 app.get("/sign-up", 로그인했니, function (req, res) {
-  if (req.user.name == "test") {
+  if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     res.render("sign-up.ejs");
   } else {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
