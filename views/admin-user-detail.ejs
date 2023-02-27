@@ -64,6 +64,7 @@
                         <%= user_snack[i].snack_name %>
                       </p>
                     </div>
+                    <button class="btn btn-danger user-snack-delete" data-id="<%= user_snack[i]._id %>">삭제</button>
                   </li>
                   <% } %>
               </ul>
@@ -138,9 +139,9 @@
     </script>
     <script>
       $('.snack-plus').click(function(e){
-        var src = $('#snack_img').attr("src");
+        var src = $(e.target).siblings('div').find('img').attr("src");
         var user = $('#user_name').text();
-        var snack = $('#snack_name').text();
+        var snack = $(e.target).siblings('div').find('p').text();
         $.ajax({
           method:"POST",
           url:"/snack-plus",
@@ -154,5 +155,24 @@
         });
       });
     </script>
+
+    <script>
+      $('.user-snack-delete').click(function(e){
+        var 글번호 = e.target.dataset.id;
+        var 지금누른거 = $(this);
+        $.ajax({
+          method : 'DELETE',
+          url : '/user-snack-delete',
+          data : {_id : 글번호 }
+        }).done((결과)=>{
+          console.log('성공')
+          지금누른거.parent('li').fadeOut();
+        }).fail(function(){
+          //코드작성
+        })
+      })
+    </script>
+
+    
   </body>
 </html>

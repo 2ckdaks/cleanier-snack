@@ -298,6 +298,19 @@ app.post("/snack-plus", function (req, res) {
   res.redirect("/admin-user-list");
 });
 
+//고객간식 삭제
+app.delete("/user-snack-delete", function (req, res) {
+  db.collection("user-snack").deleteOne(
+    { _id: ObjectId(req.body._id) },
+    function (에러, 결과) {
+      if (에러) {
+        console.log(에러);
+      }
+      res.status(200).send({ message: "삭제 성공" });
+    }
+  );
+});
+
 //업체등록
 app.get("/sign-up", 로그인했니, function (req, res) {
   if (req.user.name == "test") {
