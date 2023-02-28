@@ -38,6 +38,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 const { name } = require("ejs");
 const { stringify } = require("querystring");
+require("dotenv").config();
 
 app.use(
   session({ secret: "비밀코드", resave: true, saveUninitialized: false })
@@ -46,18 +47,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var db;
-MongoClient.connect(
-  "mongodb+srv://2ckdaks:s3528022@cluster0.0qiowcf.mongodb.net/cleanier-snack?retryWrites=true&w=majority",
-  function (에러, client) {
-    if (에러) return console.log(에러);
-    db = client.db("cleanier-snack");
+MongoClient.connect(process.env.DB_URL, function (에러, client) {
+  if (에러) return console.log(에러);
+  db = client.db("cleanier-snack");
 
-    //서버띄우는 코드 여기로 옮기기
-    app.listen("8080", function () {
-      console.log("listening on 8080");
-    });
-  }
-);
+  //서버띄우는 코드 여기로 옮기기
+  app.listen(process.env.PORT, function () {
+    console.log("listening on 8080");
+  });
+});
 
 //메인 페이지
 app.get("/", function (req, res) {
@@ -316,7 +314,7 @@ app.post("/snack-plus", function (req, res) {
     snack_name: req.body.snack_name,
     client: req.body.client,
   });
-  res.redirect("/admin-user-list");
+  res.status(200).send({ message: "추가 성공" });
 });
 
 //고객간식 삭제

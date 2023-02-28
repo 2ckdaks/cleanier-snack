@@ -148,7 +148,7 @@
           data: { _id: e.target.dataset.id, snack_img: src, snack_name:snack ,client: user},
         })
         .done((결과) => {
-          $(".body").html(결과);
+          location.reload(true);
         })
         .fail((에러)=>{
           console.log(에러);
