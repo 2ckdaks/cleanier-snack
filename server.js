@@ -144,17 +144,6 @@ app.get("/request", 로그인했니, async function (req, res) {
     .find({ client: String(req.user._id) })
     .toArray();
   res.render("request.ejs", { client, request, snack, user_snack });
-  // db.collection("user-request")
-  //   .find({ writer: req.user._id })
-  //   .toArray(function (에러, 결과) {
-
-  //     res.render("request.ejs", {
-  //       total: 결과,
-  //       사용자: req.user,
-  //       writer: req.user._id,
-  //       good: req.user.good,
-  //     });
-  //   });
 });
 
 //요청사항 전송
