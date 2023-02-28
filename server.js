@@ -52,7 +52,7 @@ MongoClient.connect(process.env.DB_URL, function (에러, client) {
   db = client.db("cleanier-snack");
 
   //서버띄우는 코드 여기로 옮기기
-  app.listen(process.env.PORT, function () {
+  app.listen(8080, function () {
     console.log("listening on 8080");
   });
 });
