@@ -51,7 +51,7 @@ MongoClient.connect(process.env.DB_URL, function (에러, client) {
   if (에러) return console.log(에러);
   db = client.db("cleanier-snack");
 
-  //서버띄우는 코드 여기로 옮기기
+  //서버띄우는 코드
   app.listen(8080, function () {
     console.log("listening on 8080");
   });
@@ -98,7 +98,7 @@ passport.use(
           if (에러) return done(에러);
 
           if (!결과)
-            return done(null, false, { message: "존재하지않는 아이디요" });
+            return done(null, false, { message: "존재하지않는 아이디입니다." });
           bcrypt.compare(입력한비번, 결과.pw, function (에러, isMatch) {
             if (isMatch) {
               return done(null, 결과);
