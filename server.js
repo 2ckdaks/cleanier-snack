@@ -121,7 +121,7 @@ passport.deserializeUser(function (아이디, done) {
   });
 });
 
-function 로그인했니(req, res, next) {
+function login(req, res, next) {
   if (req.user) {
     next();
   } else {
@@ -130,7 +130,7 @@ function 로그인했니(req, res, next) {
 }
 
 //고객 확인 페이지
-app.get("/request", 로그인했니, async function (req, res) {
+app.get("/request", login, async function (req, res) {
   const client = await db
     .collection("login")
     .findOne({ _id: ObjectId(req.user._id) });
@@ -201,7 +201,7 @@ app.post("/update-good", function (req, res) {
 });
 
 //로그아웃
-app.get("/logout", 로그인했니, function (req, res, next) {
+app.get("/logout", login, function (req, res, next) {
   req.logout(function (err) {
     if (err) {
       console.log(err);
@@ -212,7 +212,7 @@ app.get("/logout", 로그인했니, function (req, res, next) {
 });
 
 //간식관리
-app.get("/admin-snack-list", 로그인했니, function (req, res) {
+app.get("/admin-snack-list", login, function (req, res) {
   if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     db.collection("snack-list")
       .find()
@@ -227,7 +227,7 @@ app.get("/admin-snack-list", 로그인했니, function (req, res) {
 });
 
 //간식목록 추가
-app.get("/add-snack", 로그인했니, function (req, res) {
+app.get("/add-snack", login, function (req, res) {
   if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     res.render("add-snack.ejs");
   } else {
@@ -259,7 +259,7 @@ app.delete("/snack-delete", function (req, res) {
 });
 
 //고객관리 페이지
-app.get("/admin-user-list", 로그인했니, function (req, res) {
+app.get("/admin-user-list", login, function (req, res) {
   if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     db.collection("login")
       .find()
@@ -274,7 +274,7 @@ app.get("/admin-user-list", 로그인했니, function (req, res) {
 });
 
 //고객상세 페이지
-app.get("/admin-user-detail/:id", 로그인했니, async function async(req, res) {
+app.get("/admin-user-detail/:id", login, async function async(req, res) {
   if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     const client = await db
       .collection("login")
@@ -320,7 +320,7 @@ app.delete("/user-snack-delete", function (req, res) {
 });
 
 //업체등록
-app.get("/sign-up", 로그인했니, function (req, res) {
+app.get("/sign-up", login, function (req, res) {
   if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     res.render("sign-up.ejs");
   } else {
