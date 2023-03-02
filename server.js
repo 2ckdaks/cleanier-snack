@@ -326,7 +326,7 @@ app.get("/sign-up", login, function (req, res) {
   } else {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
-    res.write('<script>window.location="index-login""</script>');
+    res.write('<script>window.location="index-login"</script>');
   }
 });
 
@@ -344,9 +344,9 @@ app.post("/sign-up", (req, res) => {
         },
         (error, result) => {
           if (result) {
-            res.send({
-              code: 0,
-            });
+            res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+            res.write("<script>alert('이미 등록된 ID 입니다. ')</script>");
+            res.write('<script>window.location="sign-up"</script>');
           } else {
             db.collection("login").insertOne(
               {
