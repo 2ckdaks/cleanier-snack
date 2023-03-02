@@ -226,6 +226,60 @@ app.get("/admin-snack-list", login, function (req, res) {
   }
 });
 
+//간식검색
+app.get('/search-snack', (요청, 응답)=>{
+
+  var 검색조건 = [
+    {
+      $search: {
+        index: 'nameSearch',
+        text: {
+          query: 요청.query.value,
+          path: 'name'
+        }
+      }
+    }
+  ] 
+  console.log(요청.query);
+  db.collection('snack-list').aggregate(검색조건).toArray((에러, 결과)=>{
+    응답.render('search-snack.ejs', {snack : 결과})
+  })
+})
+
+app.get("/detail-snack-search", login, async function async(req, res) {
+  var 검색조건 = [
+    {
+      $search: {
+        index: 'user-snack',
+        text: {
+          query: req.query.value,
+          path: 'name'
+        }
+      }
+    }
+  ] 
+  if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
+    const client = await db
+      .collection("login")
+      .findOne({ _id: ObjectId(req.params.id) });
+    const request = await db
+      .collection("user-request")
+      .find({ writer: ObjectId(req.params.id) })
+      .toArray();
+    const user_snack = await db
+      .collection("user-snack")
+      .find({ client: req.params.id })
+      .toArray();
+      const snack = await db.collection('snack-list').aggregate(검색조건).toArray((에러, 결과)=>{
+      });
+      res.render("detail-snack-search.ejs", { client, request, snack, user_snack });
+  } else {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
+    res.write('<script>window.location="index-login"</script>');
+  }
+});
+
 //간식목록 추가
 app.get("/add-snack", login, function (req, res) {
   if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
