@@ -227,37 +227,40 @@ app.get("/admin-snack-list", login, function (req, res) {
 });
 
 //간식검색
-app.get('/search-snack', (요청, 응답)=>{
-
+app.get("/search-snack", (요청, 응답) => {
   var 검색조건 = [
     {
       $search: {
-        index: 'nameSearch',
+        index: "nameSearch",
         text: {
           query: 요청.query.value,
-          path: 'name'
-        }
-      }
-    }
-  ] 
+          path: "name",
+        },
+      },
+    },
+  ];
   console.log(요청.query);
-  db.collection('snack-list').aggregate(검색조건).toArray((에러, 결과)=>{
-    응답.render('search-snack.ejs', {snack : 결과})
-  })
-})
+  db.collection("snack-list")
+    .aggregate(검색조건)
+    .toArray((에러, 결과) => {
+      응답.render("search-snack.ejs", { snack: 결과 });
+    });
+});
 
-app.get("/detail-snack-search", login, async function async(req, res) {
-  var 검색조건 = [
+//상세페이지 검색
+app.get("/detail-snack-search/:id", login, async function async(req, res) {
+  var con = [
     {
       $search: {
-        index: 'user-snack',
+        index: "nameSearch",
         text: {
           query: req.query.value,
-          path: 'name'
-        }
-      }
-    }
-  ] 
+          path: "name",
+        },
+      },
+    },
+  ];
+  console.log(req.query);
   if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
     const client = await db
       .collection("login")
@@ -270,15 +273,65 @@ app.get("/detail-snack-search", login, async function async(req, res) {
       .collection("user-snack")
       .find({ client: req.params.id })
       .toArray();
-      const snack = await db.collection('snack-list').aggregate(검색조건).toArray((에러, 결과)=>{
+    const snack = await db
+      .collection("snack-list")
+      .aggregate(con)
+      .toArray((에러, 결과) => {
+        res.render("detail-snack-search.ejs", {
+          client,
+          request,
+          snack,
+          user_snack,
+        });
       });
-      res.render("detail-snack-search.ejs", { client, request, snack, user_snack });
   } else {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
     res.write('<script>window.location="index-login"</script>');
   }
 });
+
+// app.get("/detail-snack-search/:id", login, async function async(req, res) {
+//   var 검색조건 = [
+//     {
+//       $search: {
+//         index: "nameSearch",
+//         text: {
+//           query: req.query.value,
+//           path: "name",
+//         },
+//       },
+//     },
+//   ];
+//   if (req.user._id == "63fc4dac0eb3605d0e573c6c") {
+//     const client = await db
+//       .collection("login")
+//       .findOne({ _id: ObjectId(req.params.id) });
+//     const request = await db
+//       .collection("user-request")
+//       .find({ writer: ObjectId(req.params.id) })
+//       .toArray();
+//     const user_snack = await db
+//       .collection("user-snack")
+//       .find({ client: req.params.id })
+//       .toArray();
+// const snack = await db
+//   .collection("snack-list")
+//   .aggregate(검색조건)
+//   .toArray((에러, 결과) => {
+// res.render("detail-snack-search.ejs", {
+//   client,
+//   request,
+//   snack,
+//   user_snack,
+// });
+//       });
+//   } else {
+//     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+//     res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
+//     res.write('<script>window.location="index-login"</script>');
+//   }
+// });
 
 //간식목록 추가
 app.get("/add-snack", login, function (req, res) {
@@ -323,7 +376,7 @@ app.get("/admin-user-list", login, function (req, res) {
   } else {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.write("<script>alert('관리자 권한이 없습니다. ')</script>");
-    res.write('<script>window.location="index-login"</script>');
+    res.end('<script>window.location="index-login"</script>');
   }
 });
 
@@ -350,14 +403,26 @@ app.get("/admin-user-detail/:id", login, async function async(req, res) {
   }
 });
 
-//고객간식 추가
+//고객 간식 추가
 app.post("/snack-plus", function (req, res) {
-  db.collection("user-snack").insertOne({
-    snack_src: req.body.snack_img,
-    snack_name: req.body.snack_name,
-    client: req.body.client,
-  });
-  res.status(200).send({ message: "추가 성공" });
+  db.collection("user-snack").findOne(
+    { snack_name: req.body.snack_name, client: req.body.client },
+    function (에러, 결과) {
+      if (
+        결과?.snack_name == req.body.snack_name &&
+        결과?.client == req.body.client
+      ) {
+        //코드작성
+      } else {
+        db.collection("user-snack").insertOne({
+          snack_src: req.body.snack_img,
+          snack_name: req.body.snack_name,
+          client: req.body.client,
+        });
+        res.status(200).send({ message: "추가 성공" });
+      }
+    }
+  );
 });
 
 //고객간식 삭제
