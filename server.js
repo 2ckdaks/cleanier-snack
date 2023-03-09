@@ -412,7 +412,7 @@ app.post("/snack-plus", function (req, res) {
         결과?.snack_name == req.body.snack_name &&
         결과?.client == req.body.client
       ) {
-        //코드작성
+        console.log(1)
       } else {
         db.collection("user-snack").insertOne({
           snack_src: req.body.snack_img,
