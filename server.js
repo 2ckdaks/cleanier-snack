@@ -449,12 +449,13 @@ app.get("/sign-up", login, function (req, res) {
   }
 });
 
+
 app.post("/sign-up", (req, res) => {
   let id = req.body.user_id;
   let pw = req.body.user_pw;
   let name = req.body.user_name;
   const saltRounds = 10;
-
+//암호화
   bcrypt.hash(pw, saltRounds, (err, hash) => {
     try {
       db.collection("login").findOne(
