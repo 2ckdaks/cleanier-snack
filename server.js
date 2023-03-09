@@ -412,14 +412,18 @@ app.post("/snack-plus", function (req, res) {
         결과?.snack_name == req.body.snack_name &&
         결과?.client == req.body.client
       ) {
-        //코드작성
+        res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+        res.write("<script>alert('이미 등록된 간식입니다. ')</script>");
+        res.write('<script>window.location="index-login"</script>');
       } else {
-        db.collection("user-snack").insertOne({
-          snack_src: req.body.snack_img,
-          snack_name: req.body.snack_name,
-          client: req.body.client,
-        });
-        res.status(200).send({ message: "추가 성공" });
+        db.collection("user-snack").insertOne(
+          {
+            snack_src: req.body.snack_img,
+            snack_name: req.body.snack_name,
+            client: req.body.client,
+          },
+          res.status(200).send({ message: "추가 성공" })
+        );
       }
     }
   );
