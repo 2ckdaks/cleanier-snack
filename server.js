@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectId;
 app.set("view engine", "ejs");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 let multer = require("multer");
@@ -403,7 +403,6 @@ app.get("/admin-user-detail/:id", login, async function async(req, res) {
   }
 });
 
-//data && data.snack_name === req.body.snack_name && data.client === req.body.client
 //고객 간식 추가
 app.post("/snack-plus", function (req, res) {
   db.collection("user-snack").findOne(
