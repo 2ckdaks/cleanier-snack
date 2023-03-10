@@ -403,18 +403,18 @@ app.get("/admin-user-detail/:id", login, async function async(req, res) {
   }
 });
 
+//data && data.snack_name === req.body.snack_name && data.client === req.body.client
 //고객 간식 추가
 app.post("/snack-plus", function (req, res) {
   db.collection("user-snack").findOne(
     { snack_name: req.body.snack_name, client: req.body.client },
-    function (에러, 결과) {
+    function (err, data) {
       if (
-        결과?.snack_name == req.body.snack_name &&
-        결과?.client == req.body.client
+        data &&
+        data.snack_name === req.body.snack_name &&
+        data.client === req.body.client
       ) {
-        res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-        res.write("<script>alert('이미 등록된 간식입니다. ')</script>");
-        res.write('<script>window.location="index-login"</script>');
+        res.status(400).send({ message: "이미 등록된 간식입니다." });
       } else {
         db.collection("user-snack").insertOne(
           {
@@ -422,7 +422,13 @@ app.post("/snack-plus", function (req, res) {
             snack_name: req.body.snack_name,
             client: req.body.client,
           },
-          res.status(200).send({ message: "추가 성공" })
+          function (err, result) {
+            if (err) {
+              res.status(500).send({ message: "서버 오류" });
+            } else {
+              res.status(200).send({ message: "추가 성공" });
+            }
+          }
         );
       }
     }
