@@ -1,0 +1,49 @@
+.tel {
+  display: none;
+  /* position: fixed; */
+  bottom: 0;
+  width: 100%;
+  min-width: 280px;
+  margin: auto;
+  text-align: center;
+  height: 70px;
+  border: none;
+  background: #00d2b7;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: #ffffff;
+  z-index: 1;
+}
+
+@media screen and (max-width: 767px) {
+  .tel {
+    display: inline-block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    min-width: 280px;
+    margin: auto;
+    text-align: center;
+    height: 70px;
+    border: none;
+    background: #00d2b7;
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    color: #ffffff;
+    z-index: 999;
+  }
+
+  .tel:hover {
+    cursor: pointer;
+    transition: transform 1s;
+    filter: brightness(70%);
+  }
+}

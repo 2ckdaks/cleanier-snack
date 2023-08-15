@@ -1,0 +1,147 @@
+.cleanier-background {
+  margin-top: 100px;
+  width: 100%;
+  height: auto;
+  background: #00d2b7;
+}
+
+.cleanier-container {
+  width: 1440px;
+  height: 226px;
+  background: #00d2b7;
+  margin: auto;
+  position: relative;
+}
+
+.cleanier-title {
+  display: inline-block;
+  width: 800px;
+  height: 46px;
+  margin-top: 40px;
+  margin-left: 160px;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 37px;
+  letter-spacing: -1px;
+  color: #ffffff;
+}
+
+.cleanier-paragraphs {
+  width: 406px;
+  height: 24px;
+  margin-top: -16px;
+  margin-left: 160px;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: -1px;
+  color: #ffffff;
+}
+
+.cleanier-container button {
+  width: 185px;
+  height: 36px;
+  margin-top: 14px;
+  margin-left: 160px;
+  background: #ffffff;
+  border: none;
+  border-radius: 4px;
+
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  color: #1c1c1e;
+}
+
+.cleanier-bg {
+  position: absolute;
+  right: 211px;
+  bottom: 0px;
+}
+
+.cleanier-people {
+  position: absolute;
+  right: 160px;
+  bottom: 0px;
+}
+
+@media screen and (max-width: 767px) {
+  .cleanier-background {
+    width: 100%;
+    height: auto;
+    margin-top: -40px;
+    background: #00d2b7;
+  }
+
+  .cleanier-container {
+    width: 360px;
+    height: 226px;
+    background: #00d2b7;
+    margin: auto;
+  }
+
+  .cleanier-title {
+    width: 320px;
+    height: 46px;
+    margin-left: 0px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 130%;
+    letter-spacing: -1px;
+    color: #ffffff;
+  }
+  .cleanier-title b {
+    display: block;
+    content: "";
+  }
+
+  .cleanier-paragraphs {
+    width: 320px;
+    height: 17px;
+    margin-top: 10px;
+    margin-left: 0px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 120%;
+    letter-spacing: -1px;
+    color: #ffffff;
+  }
+
+  .cleanier-container button {
+    width: 185px;
+    height: 36px;
+    margin-top: 14px;
+    margin-left: 0px;
+    background: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    color: #1c1c1e;
+  }
+
+  .cleanier-bg {
+    display: none;
+    position: absolute;
+    right: 211px;
+    bottom: 0px;
+  }
+
+  .cleanier-people {
+    display: none;
+    position: absolute;
+    right: 160px;
+    bottom: 0px;
+  }
+}

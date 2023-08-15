@@ -1,0 +1,170 @@
+.Banner-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  min-width: 1440px;
+  height: 730px;
+  background: #ffdbdb;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  background-image: url(/public/image/pc/bg.png);
+  margin-top: -2px;
+  background-repeat: no-repeat;
+}
+
+.Banner-contents {
+  width: 1120px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pc-img {
+  right: 500px;
+  width: 588px;
+  float: right;
+  margin-top: -315px;
+  margin-right: -70px;
+  width: 849px;
+  height: 630px;
+}
+.m-img-bar {
+  display: none;
+}
+
+.m-img-people {
+  display: none;
+}
+
+.Banner-container p {
+  display: block;
+  position: relative;
+  z-index: 2;
+  width: 1120px;
+  height: 198px;
+  margin-top: 200px;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  /* line-height: 120%; */
+  letter-spacing: -2.5px;
+  color: #1c1c1e;
+}
+
+.Banner-container button {
+  width: 218px;
+  height: 70px;
+  margin-top: 48px;
+  text-align: center;
+  color: #ffffff;
+  border: none;
+  border-radius: 16px;
+  background: #00d2b7;
+  border-radius: 16px;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+}
+.Banner-container button:hover {
+  cursor: pointer;
+  transition: transform 1s;
+  filter: brightness(70%);
+}
+
+/* 모바일 버전 */
+
+@media screen and (max-width: 767px) {
+  .Banner-container {
+    display: inline-block;
+    width: 100%;
+    min-width: 280px;
+    height: 500px;
+    background: #ffdbdb;
+    font-family: "Spoqa Han Sans Neo", "sans-serif";
+    background-image: url(/public/image/mobile/banner/bg.svg);
+    background-repeat: no-repeat;
+  }
+  .Banner-background {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-width: 280px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+  }
+
+  .Banner-container p {
+    display: block;
+    width: 320px;
+    height: 100px;
+    margin-top: 40px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 130%;
+    letter-spacing: -2.5px;
+    color: #171717;
+  }
+
+  .Banner-container button {
+    width: 133px;
+    height: 48px;
+    margin-top: 24px;
+    text-align: center;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    background: #00d2b7;
+    border-radius: 8px;
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 150%;
+  }
+  .Banner-container button:hover {
+    cursor: pointer;
+    transition: transform 1s;
+    filter: brightness(70%);
+  }
+
+  .Banner-contents {
+    width: 320px;
+    height: auto;
+    margin-left: 20px;
+  }
+
+  .pc-img {
+    display: none;
+    width: 300px;
+    float: right;
+    margin-top: -345px;
+    margin-right: -70px;
+    width: 849px;
+    height: 630px;
+  }
+
+  .m-img-bar {
+    position: absolute;
+    display: block;
+    width: 233px;
+    height: 271px;
+    right: 17px;
+    bottom: 0px;
+  }
+
+  .m-img-people {
+    position: absolute;
+    display: block;
+    width: 233px;
+    height: 271px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1;
+  }
+}

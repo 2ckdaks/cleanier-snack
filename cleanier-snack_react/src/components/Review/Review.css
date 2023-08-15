@@ -1,0 +1,150 @@
+.review-container {
+  width: 100%;
+  min-width: 1440px;
+  height: 677px;
+  margin: auto;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.review-title {
+  font-family: "Spartan";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: #00d2b7;
+}
+
+.review-paragraphs {
+  margin-top: 16px;
+  margin-bottom: 80px;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 150%;
+  text-align: center;
+  color: #1c1c1e;
+}
+
+.review-item-container {
+  width: 265px;
+  height: 341px;
+  text-align: center;
+  margin-right: 20px;
+  background: #f5f5f5;
+  border-radius: 16px;
+}
+
+.review-img-container div img {
+  width: 100px;
+  height: 140px;
+}
+
+.review-name {
+  margin-top: 32px;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 120%;
+  text-align: center;
+  letter-spacing: -1px;
+  color: #333333;
+}
+
+.review-write {
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 140%;
+  text-align: center;
+  letter-spacing: -1px;
+  color: #333333;
+}
+
+@media screen and (max-width: 767px) {
+  .review-container {
+    width: 100%;
+    min-width: 360px;
+    height: 540px;
+    margin: auto;
+    text-align: center;
+    padding-top: 40px;
+  }
+
+  .review-title {
+    font-family: "Spartan";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    color: #00d2b7;
+  }
+
+  .review-paragraphs {
+    margin-top: 24px;
+    margin-bottom: 40px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 20px;
+    text-align: center;
+    color: #171717;
+  }
+
+  .review-paragraphs b {
+    display: block;
+    content: "";
+    margin: 0.5em;
+  }
+
+  .review-item-container {
+    width: 224px;
+    height: 322px;
+    text-align: center;
+    padding-top: 40px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    margin-right: 20px;
+  }
+
+  .review-item-container img {
+    width: 100px;
+    height: 140px;
+  }
+
+  marquee {
+    width: 100%;
+    margin: auto;
+  }
+
+  .review-name {
+    margin-top: 16px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 120%;
+    text-align: center;
+    letter-spacing: -1px;
+    color: #333333;
+  }
+
+  .review-write {
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    text-align: center;
+    letter-spacing: -1px;
+    color: #333333;
+  }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicons/favicon.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/favicons/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:title" content="클리니어 스낵" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://snack.thecleanier.com/" />
+    <meta property="og:image" content="/image/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:description"
+      content="직원들이 만족하는 요즘 회사 간식! 알찬 큐레이션으로 가성비 NO.1 클리니어 스낵"
+    />
+    <meta property="og:site_name" content="클리니어 스낵" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      name="description"
+      content="직원들이 만족하는 요즘 회사 간식! 알찬 큐레이션으로 가성비 NO.1 클리니어 스낵"
+    />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GA_TRACKING_ID%"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "%REACT_APP_GA_TRACKING_ID%");
+      gtag("config", "AW-415199110");
+    </script>
+    <!-- Event snippet for 스낵_진입 conversion page -->
+    <script>
+      gtag("event", "conversion", {
+        send_to: "AW-415199110/O9mYCKT1ip8YEIbf_cUB",
+      });
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "%REACT_APP_GTM_ID%");
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- font -->
+    <link
+      href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spartan:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- meta태그 -->
+    <meta
+      name="naver-site-verification"
+      content="5c2380d957ceb30b781a8aa8f4ba5c5eb45834c1"
+    />
+    <!-- 카카오 챗 sdk -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script
+      src="https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js"
+      integrity="sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC"
+      crossorigin="anonymous"
+    ></script>
+    <title>클리니어 스낵 서비스</title>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=%REACT_APP_GTM_ID%"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>

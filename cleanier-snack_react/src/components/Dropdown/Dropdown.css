@@ -1,0 +1,141 @@
+.dropdown-container {
+  width: 550px;
+  height: 50px;
+  margin: auto;
+}
+
+.dropdown-toggle {
+  position: relative;
+  width: 550px;
+  height: 50px;
+  background: #ffffff;
+  border: 1px solid #bbbec6;
+  border-radius: 4px;
+  text-align: left;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #bbbec6;
+}
+
+.dropdown-toggle :focus {
+  outline: none;
+}
+
+.dropdown-toggle img {
+  position: absolute;
+  right: 20px;
+}
+
+.dropdown-toggle:hover {
+  color: #c1c1c1;
+  border: 1px solid #00d2b7;
+  background: #ffffff;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 548px;
+  height: 50px;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #1c1c1e;
+}
+
+.dropdown-item:hover {
+  background-color: #e3f7f4;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu {
+  background-color: white;
+}
+
+.show .dropdown-toggle {
+  background-color: white;
+  color: #1c1c1e;
+  border: 1px solid #00d2b7;
+}
+
+.show .dropdown-toggle img {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .dropdown-container {
+    width: 320px;
+    height: 50px;
+    margin: auto;
+  }
+
+  .dropdown-toggle {
+    position: relative;
+    width: 320px;
+    height: 50px;
+    background: #ffffff;
+    border: 1px solid #bbbec6;
+    border-radius: 4px;
+    text-align: left;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #bbbec6;
+  }
+
+  .dropdown-toggle img {
+    position: absolute;
+    right: 20px;
+  }
+
+  .dropdown-toggle:hover {
+    color: #c1c1c1;
+    border: 1px solid #00d2b7;
+    background: #ffffff;
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 318px;
+    height: 50px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #1c1c1e;
+  }
+
+  .dropdown-item:hover {
+    background-color: #e3f7f4;
+  }
+
+  .dropdown-toggle::after {
+    display: none;
+  }
+
+  .dropdown-menu {
+    background-color: white;
+  }
+
+  .show .dropdown-toggle {
+    background-color: white;
+    color: #1c1c1e;
+    border: 1px solid #00d2b7;
+  }
+
+  .show .dropdown-toggle img {
+    display: none;
+  }
+}

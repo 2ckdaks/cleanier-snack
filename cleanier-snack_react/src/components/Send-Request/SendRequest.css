@@ -1,0 +1,228 @@
+.send-container {
+  width: 1440px;
+  height: 777px;
+  margin: auto;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.send-message {
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 150%;
+  text-align: center;
+  color: #000000;
+}
+
+.report {
+  width: 563px;
+  height: 495px;
+  border: 1px solid #c1c1c1;
+  border-radius: 4px;
+  margin-top: 77px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.report-message {
+  display: inline-block;
+  width: 561px;
+  height: 120px;
+  background: #f5f5f5;
+  text-align: center;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: -0.5px;
+  color: #3d3d3d;
+}
+
+.report-message img {
+  margin-bottom: 10px;
+}
+
+.check-mark {
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.report-contents {
+  width: 561px;
+  height: 375px;
+  padding-top: 40px;
+  text-align: left;
+  position: relative;
+}
+
+.sendRequest-form {
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: #171717;
+  margin-left: 46px;
+  text-decoration-line: none;
+}
+
+.user-write {
+  position: absolute;
+  left: 220px;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #171717;
+  text-decoration-line: none;
+  word-wrap: break-word; /* 또는 overflow-wrap: break-word; */
+}
+
+.report-contents ul {
+  list-style: none;
+}
+
+.report-contents li {
+  margin-bottom: 16px;
+}
+
+.send-container button {
+  width: 563px;
+  height: 76px;
+  margin-top: 24px;
+  background: #00d2b7;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+  border: none;
+  border-radius: 4px;
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  text-align: center;
+  color: #ffffff;
+}
+
+.send-container button:hover {
+  cursor: pointer;
+  transition: transform 1s;
+  filter: brightness(70%);
+}
+
+@media screen and (max-width: 767px) {
+  .send-container {
+    width: 360px;
+    height: 777px;
+    margin: auto;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .send-message {
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    letter-spacing: -0.5px;
+    color: #000000;
+  }
+
+  .report {
+    width: 322px;
+    height: 478px;
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .report-message {
+    display: inline-block;
+    width: 320px;
+    height: 120px;
+    margin-bottom: -20px;
+    background: #f5f5f5;
+    text-align: center;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.5px;
+    color: #3d3d3d;
+  }
+
+  .check-mark {
+    width: 24px;
+    height: 24px;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+
+  .report-contents {
+    width: 320px;
+    height: 318px;
+    text-align: left;
+    margin-left: 20px;
+  }
+
+  .sendRequest-form {
+    width: 76px;
+    height: 22px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 22px;
+    color: #171717;
+  }
+
+  .user-write {
+    margin-left: -120px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    color: #171717;
+  }
+
+  .report-contents ul {
+    margin-top: 0px;
+    margin-left: -70px;
+  }
+
+  .send-container button {
+    width: 322px;
+    height: 44px;
+    margin-top: 24px;
+    background: #03d2b7;
+    box-shadow: 0px 2.4px 4px rgba(121, 129, 158, 0.07);
+    border-radius: 4px;
+    font-family: "Spoqa Han Sans Neo";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    color: #ffffff;
+  }
+
+  .send-container button:hover {
+    cursor: pointer;
+    transition: transform 1s;
+    filter: brightness(70%);
+  }
+}
