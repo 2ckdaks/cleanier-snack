@@ -6,6 +6,7 @@ import { db } from "../../index";
 import { Dropdowns } from "../Dropdown/Dropdown";
 
 function Contact({ planName, setPlanName, handlePlanSelect }) {
+  // 상태값을 정의
   const [locationValue, setLocationValue] = useState("");
   const [companyValue, setCompanyValue] = useState("");
   const [nameValue, setNameValue] = useState("");
@@ -16,8 +17,9 @@ function Contact({ planName, setPlanName, handlePlanSelect }) {
   const [plan, setPlan] = useState("");
   const navigate = useNavigate();
 
-  //전화번호 정규식
+  // 전화번호 유효성 검사
   const tel = (e) => {
+    // 입력값에서 숫자와 '-'만 허용하도록 정규식을 사용하여 변환
     const telValue = e.target.value
       .replace(/[^0-9]/g, "")
       .replace(
@@ -28,6 +30,9 @@ function Contact({ planName, setPlanName, handlePlanSelect }) {
     setTelValue((prev) => {
       return telValue;
     });
+
+    // 유효성 검사 후 경고 표시 또는 스타일 변경
+    // 올바르지 않은 경우 경고 메시지를 표시하고 입력 필드 스타일 변경
     const telInput = e.target;
     const warnMsg = telInput.nextElementSibling;
 
@@ -52,14 +57,15 @@ function Contact({ planName, setPlanName, handlePlanSelect }) {
     }
   };
 
-  //이메일 정규식
+  // 이메일 유효성 검사
   const email = (e) => {
     const emailValue = e.target.value.trim(); // trim()으로 입력값의 공백을 제거
     const emailregex =
       /^[A-Za-z0-9!#$%&'*+/=?^"_‘({|})~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^"_‘({|})~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?$/g;
     const emailInput = e.target;
     const warnMsg = emailInput.nextElementSibling;
-
+    // 입력값의 공백을 제거하고 이메일 정규식을 사용하여 검사
+    // 올바르지 않은 경우 경고 메시지를 표시하고 입력 필드 스타일 변경
     if (emailValue === "") {
       // 값이 비어있는 경우
       warnMsg.style.display = "block";
@@ -78,8 +84,10 @@ function Contact({ planName, setPlanName, handlePlanSelect }) {
     setEmailValue(emailValue);
   };
 
-  //예산 validation
+  // 예산 값 처리
   const budget = (e) => {
+    // 입력값에서 숫자와 ','만 허용하도록 정규식을 사용하여 변환
+    // 올바른 형식으로 숫자를 표시하기 위해 ','를 추가
     let budgetValue = e.target.value.replace(/[^0-9,]/g, "");
     if (budgetValue === "" || Number(budgetValue) === 0) {
       budgetValue = "";
@@ -105,8 +113,9 @@ function Contact({ planName, setPlanName, handlePlanSelect }) {
     }
   };
 
-  //소속직원수 정규식
+  // 소속 직원 수 값 처리
   const people = (e) => {
+    // 입력값에서 숫자만 허용하도록 정규식을 사용하여 변환
     let peopleValue = e.target.value.replace(/[^0-9]/g, "");
     if (peopleValue === "" || Number(peopleValue) === 0) {
       peopleValue = "";
@@ -120,6 +129,7 @@ function Contact({ planName, setPlanName, handlePlanSelect }) {
     console.log(telValue);
   }, [telValue]);
 
+  // 폼 제출 시 실행되는 함수
   //전송시 필수값 미입력일때
   useEffect(() => {
     const requiredInputs = document.querySelectorAll("input[required]");
